@@ -59,7 +59,7 @@ sub num_win(\@\@) {
         # printf("x: %s\n",$w_num);
         foreach $d_num (@{$draw_ref}) {
             if ($w_num == $d_num ) {
-                printf("Found Winning Number: %s\n", $w_num);
+                # printf("Found Winning Number: %s\n", $w_num);
                 $ret_num++;
             }
         }
