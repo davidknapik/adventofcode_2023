@@ -2,6 +2,7 @@
 
 # my $input_file = 'test_input2.txt' ;
 my $input_file = 'input.txt' ;
+
 my $line_no = 0 ;
 my $total_lines = &get_file_lines(); 
 printf("$input_file has $total_lines lines\n");
