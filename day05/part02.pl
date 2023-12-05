@@ -1,7 +1,11 @@
 #!/usr/bin/perl 
 
-my $input_file = 'test_input.txt' ;
-# my $input_file = 'input.txt' ;
+# my $input_file = 'test_input.txt' ;
+# my $input_file = 'test_input2.txt' ;
+# my $input_file = 'input2.txt' ;
+my $input_file = 'input.txt' ;
+
+my $start_time = time;
 
 my @seeds ;
 my @seed_to_soil ;
@@ -33,6 +37,11 @@ foreach $row (@seeds){
 
     for ( $seed_i = $row->[0]; $seed_i <= $seed_max; $seed_i++) {
 
+        if ($seed_i % 1000000 == 0) {
+            printf("Seed: %s %s (s)\n", $seed_i, time - $start_time);
+            $start_time = time ;
+        }
+
         my $soil = &seed_to_soil($seed_i, \@seeds_to_soil) ;
         my $fertilizer = &soil_to_fertilizer($soil, \@soil_to_fertilizer) ;
         my $water = &fertilizer_to_water($fertilizer, \@fertilizer_to_water) ;
@@ -41,13 +50,14 @@ foreach $row (@seeds){
         my $humidity = &temperature_to_humidity($temperature, \@temperature_to_humidity) ;
         my $location = &humidity_to_location($humidity, \@humidity_to_location);
 
-        printf("Seed: %s Soil: %s Fertilizer: %s Water: %s Light: %s Temperature: %s Humidity: %s Location: %s\n",
-            $seed_i, $soil, $fertilizer, $water, $light, $temperature, $humidity, $location);
+        # printf("Seed: %s Soil: %s Fertilizer: %s Water: %s Light: %s Temperature: %s Humidity: %s Location: %s\n",
+        #     $seed_i, $soil, $fertilizer, $water, $light, $temperature, $humidity, $location);
         
         if ($location < $lowest_loc or $lowest_loc == '') {
             $lowest_loc = $location ;
         }
     } 
+    printf("Lowest Location: %s\n\n", $lowest_loc);
 }
 
 printf("Lowest Location: %s\n", $lowest_loc);
@@ -383,6 +393,7 @@ sub seed_to_soil($\@) {
 
         if ($x >= $src and $x <= $src+$len-1) {
             $ret_val = $dst + ($x - $src) ;
+            return $ret_val ;
         }
     }
 
@@ -405,6 +416,7 @@ sub soil_to_fertilizer($\@) {
 
         if ($x >= $src and $x <= $src+$len-1) {
             $ret_val = $dst + ($x - $src) ;
+            return $ret_val ;
         }
     }
 
@@ -425,6 +437,7 @@ sub fertilizer_to_water($\@) {
 
         if ($x >= $src and $x <= $src+$len-1) {
             $ret_val = $dst + ($x - $src) ;
+            return $ret_val ;
         }
     }
 
@@ -446,6 +459,7 @@ sub water_to_light($\@) {
 
         if ($x >= $src and $x <= $src+$len-1) {
             $ret_val = $dst + ($x - $src) ;
+            return $ret_val ;
         }
     }
 
@@ -467,6 +481,7 @@ sub light_to_temperature($\@) {
 
         if ($x >= $src and $x <= $src+$len-1) {
             $ret_val = $dst + ($x - $src) ;
+            return $ret_val ;
         }
     }
 
@@ -490,6 +505,7 @@ sub temperature_to_humidity($\@) {
 
         if ($x >= $src and $x <= $src+$len-1) {
             $ret_val = $dst + ($x - $src) ;
+            return $ret_val ;
         }
     }
 
@@ -513,6 +529,7 @@ sub humidity_to_location($\@) {
 
         if ($x >= $src and $x <= $src+$len-1) {
             $ret_val = $dst + ($x - $src) ;
+            return $ret_val ;
         }
     }
 
