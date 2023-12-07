@@ -31,9 +31,8 @@ foreach $i (0 .. $#time_array) {
 
 printf("Total Wins: %s\n",$total_wins) ;
 
-$end_time = time ;
 
-printf("Duration: %s(s)\n", $end_time - $start_time ) ;
+printf("Duration: %02d:%02d:%02d\n", (gmtime(time - $start_time))[2,1,0]) ;
 
 
 exit ;

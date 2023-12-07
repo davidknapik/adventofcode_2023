@@ -3,7 +3,7 @@
 my $input_file = 'test_input.txt' ;
 # my $input_file = 'test_input2.txt' ;
 # my $input_file = 'input2.txt' ;
-# my $input_file = 'input.txt' ;
+my $input_file = 'input.txt' ;
 # my $input_file = 'input_a.txt' ;
 # my $input_file = 'input_b.txt' ;
 # my $input_file = 'input_c.txt' ;
@@ -47,15 +47,135 @@ foreach $row (@seeds){
             $start_time = time ;
         }
 
-        my $location = &map_it(&map_it(&map_it(&map_it(&map_it(&map_it(&map_it($seed_i, \@seeds_to_soil), \@soil_to_fertilizer), \@fertilizer_to_water), \@water_to_light), \@light_to_temperature), \@temperature_to_humidity), \@humidity_to_location) ;
 
         # my $soil = &map_it($seed_i, \@seeds_to_soil) ;
+        $x = $seed_i ;
+        $ret_val = $x ;
+
+        foreach $row (@seeds_to_soil){
+            $dst = $row->[0];
+            $src = $row->[1];
+            $len = $row->[2];
+
+            # printf("x: %s src: %s - %s dst: %s - %s len: %s\n", $x2, $src, $src+$len, $dst, $dst+$len, $len);
+
+            if ($x >= $src and $x <= $src+$len-1) {
+                $ret_val = $dst + ($x - $src) ;
+                # return $ret_val ;
+                last ;
+            }
+        }
+
         # my $fertilizer = &map_it($soil, \@soil_to_fertilizer) ;
+        $x = $ret_val ;
+        $ret_val = $x ;
+
+        foreach $row (@soil_to_fertilizer){
+            $dst = $row->[0];
+            $src = $row->[1];
+            $len = $row->[2];
+
+            # printf("x: %s src: %s - %s dst: %s - %s len: %s\n", $x2, $src, $src+$len, $dst, $dst+$len, $len);
+
+            if ($x >= $src and $x <= $src+$len-1) {
+                $ret_val = $dst + ($x - $src) ;
+                # return $ret_val ;
+                last ;
+            }
+        }
+
+
         # my $water = &map_it($fertilizer, \@fertilizer_to_water) ;
+        $x = $ret_val ;
+        $ret_val = $x ;
+
+        foreach $row (@soil_to_fertilizer){
+            $dst = $row->[0];
+            $src = $row->[1];
+            $len = $row->[2];
+
+            # printf("x: %s src: %s - %s dst: %s - %s len: %s\n", $x2, $src, $src+$len, $dst, $dst+$len, $len);
+
+            if ($x >= $src and $x <= $src+$len-1) {
+                $ret_val = $dst + ($x - $src) ;
+                # return $ret_val ;
+                last ;
+            }
+        }
+
+        
         # my $light = &map_it($water, \@water_to_light) ;
+        $x = $ret_val ;
+        $ret_val = $x ;
+
+        foreach $row (@water_to_light){
+            $dst = $row->[0];
+            $src = $row->[1];
+            $len = $row->[2];
+
+            # printf("x: %s src: %s - %s dst: %s - %s len: %s\n", $x2, $src, $src+$len, $dst, $dst+$len, $len);
+
+            if ($x >= $src and $x <= $src+$len-1) {
+                $ret_val = $dst + ($x - $src) ;
+                # return $ret_val ;
+                last ;
+            }
+        }
+
         # my $temperature = &map_it($light, \@light_to_temperature) ;
+        $x = $ret_val ;
+        $ret_val = $x ;
+
+        foreach $row (@light_to_temperature){
+            $dst = $row->[0];
+            $src = $row->[1];
+            $len = $row->[2];
+
+            # printf("x: %s src: %s - %s dst: %s - %s len: %s\n", $x2, $src, $src+$len, $dst, $dst+$len, $len);
+
+            if ($x >= $src and $x <= $src+$len-1) {
+                $ret_val = $dst + ($x - $src) ;
+                # return $ret_val ;
+                last ;
+            }
+        }
+    
         # my $humidity = &map_it($temperature, \@temperature_to_humidity) ;
+        $x = $ret_val ;
+        $ret_val = $x ;
+
+        foreach $row (@temperature_to_humidity){
+            $dst = $row->[0];
+            $src = $row->[1];
+            $len = $row->[2];
+
+            # printf("x: %s src: %s - %s dst: %s - %s len: %s\n", $x2, $src, $src+$len, $dst, $dst+$len, $len);
+
+            if ($x >= $src and $x <= $src+$len-1) {
+                $ret_val = $dst + ($x - $src) ;
+                # return $ret_val ;
+                last ;
+            }
+        }
+
         # my $location = &map_it($humidity, \@humidity_to_location) ;
+        $x = $ret_val ;
+        $ret_val = $x ;
+
+        foreach $row (@humidity_to_location){
+            $dst = $row->[0];
+            $src = $row->[1];
+            $len = $row->[2];
+
+            # printf("x: %s src: %s - %s dst: %s - %s len: %s\n", $x2, $src, $src+$len, $dst, $dst+$len, $len);
+
+            if ($x >= $src and $x <= $src+$len-1) {
+                $ret_val = $dst + ($x - $src) ;
+                # return $ret_val ;
+                last ;                
+            }
+        }
+        $location = $ret_val ;
 
         # printf("Seed: %s Soil: %s Fertilizer: %s Water: %s Light: %s Temperature: %s Humidity: %s Location: %s\n",
         #     $seed_i, $soil, $fertilizer, $water, $light, $temperature, $humidity, $location);
