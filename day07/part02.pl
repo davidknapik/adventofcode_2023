@@ -53,7 +53,7 @@ for $i (1..7) {
         if ($game{$key}{'type'} == $i ) {
 
             $game{$key}{'rank'} = $rank ;
-            printf("Hex: %s Hand: %s Best: %s Bid: %3s Type: %s Rank: %4s\n", $key, $game{$key}{'hand'}, $game{$key}{'besthand'}, $game{$key}{'bid'}, $game{$key}{'type'}, $game{$key}{'rank'});
+            printf("Hexsort: %5x  Hand: %5s  Best: %5s  Bid: %4d  Type: %1d  Rank: %4d\n", hex $key, $game{$key}{'hand'}, $game{$key}{'besthand'}, $game{$key}{'bid'}, $game{$key}{'type'}, $game{$key}{'rank'});
 
             $total_winnings = $total_winnings + $game{$key}{'bid'} * $game{$key}{'rank'} ;
             $rank++;
@@ -188,7 +188,7 @@ sub best_hand($) {
 
     }
 
-    printf("Hand: %s Best: %s Rank: %s\n", $hand, $best_hand, $best_rank) ;
+    # printf("Hand: %s Best: %s Rank: %s\n", $hand, $best_hand, $best_rank) ;
     return $best_hand ;
 
 }
