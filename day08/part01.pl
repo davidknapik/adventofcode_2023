@@ -3,6 +3,7 @@
 # my $input_file = 'test_input1.txt' ;
 # my $input_file = 'test_input2.txt' ;
 my $input_file = 'input.txt' ;
+my $start_time = time;
 
 
 
@@ -67,3 +68,5 @@ printf("Current Node: %s Step: %d\n", $current_node, $step_count);
 printf("\n");
 
 printf("Step Count: %d\n", $step_count);
+
+printf("Duration: %02d:%02d:%02d\n", (gmtime(time - $start_time))[2,1,0]) ;
