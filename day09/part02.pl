@@ -1,7 +1,7 @@
 #!/usr/bin/perl 
 
-my $input_file = 'test_input.txt' ; # 114
-my $input_file = 'input.txt' ; # 1743490457
+# my $input_file = 'test_input.txt' ; # 2
+my $input_file = 'input.txt' ; # 1053
 my $start_time = time;
 my $grand_total = 0 ;
 
@@ -18,9 +18,10 @@ while(<FH>){
     printf("Input Line: %s\n", $node_string) ;
 
     $get_diff = &get_diffs( \@line );
-    $next_number = $line[-1] + $get_diff ;
+    $next_number = $line[0] - $get_diff ;
 
-    printf("Next Number in sequence: %d\n",$next_number);
+
+    printf("Previous Number in sequence: %d\n",$next_number);
     $grand_total+=$next_number ;
 }
 
@@ -54,9 +55,9 @@ sub get_diffs(\@) {
     } else {
         $get_diff = &get_diffs( \@diff_array );
 
-        # add the $get_diff to last element of @diff_array and return that number
-        $diff = $diff_array[-1] + $get_diff ;
-        push(@diff_array, $diff); 
+        # add the $get_diff to first element of @diff_array and return that number
+        $diff = $diff_array[0] - $get_diff ;
+        unshift(@diff_array, $diff); 
     }
 
     return $diff ;
