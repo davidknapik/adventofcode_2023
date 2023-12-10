@@ -5,6 +5,7 @@
 my $input_file = 'input.txt' ;
 
 my @map ;
+my @ascii_map ;
 my $count = 0 ;
 
 # load in array
@@ -30,7 +31,7 @@ while(my $input_line = <FH>){
 }
 
 close(FH);
-
+@ascii_map = @map ;
 
 # dump array to verify
 printf("Array size: %d %d\n", scalar(@map), scalar(@{$map[1]}));
@@ -89,6 +90,9 @@ while ($map[$player_y][$player_x] !~ m/[S]/) {
     #   if last_dir = down 2 
     #       go down
     if ( $current_char =~ m/[|]/) {
+
+        $ascii_map[$player_y][$player_x] = "║" ;
+
         if ($last_dir eq "up") {
             # try to move up
             if ( $map[$player_y-1][$player_x] =~ m/[\|7FS]/ ) {
@@ -119,6 +123,9 @@ while ($map[$player_y][$player_x] !~ m/[S]/) {
     #   if last_dir = left 3
     #       go up
     if ( $current_char =~ m/[L]/) {
+
+        $ascii_map[$player_y][$player_x] = "╚" ;
+
         if ($last_dir eq "down") {
             if ( $map[$player_y][$player_x+1] =~ m/[7J\-S]/ ) {
                 # check 'right'
@@ -149,6 +156,9 @@ while ($map[$player_y][$player_x] !~ m/[S]/) {
     #   if last_dir = left 3 
     #       go left
     if ( $current_char =~ m/[-]/) {
+
+        $ascii_map[$player_y][$player_x] = "═" ;
+
         if ($last_dir eq "right") {
             if ( $map[$player_y][$player_x+1] =~ m/[7J\-S]/ ) {
                 # check 'right'
@@ -178,6 +188,9 @@ while ($map[$player_y][$player_x] !~ m/[S]/) {
     #   if last_dir = right 4
     #       go up
     if ( $current_char =~ m/[J]/) {
+        
+        $ascii_map[$player_y][$player_x] = "╝" ;
+
         if ($last_dir eq "down") {
             if ( $map[$player_y][$player_x-1] =~ m/[FL\-S]/ ) {
                 # check 'left'
@@ -208,6 +221,9 @@ while ($map[$player_y][$player_x] !~ m/[S]/) {
     #   if last_dir = right 4
     #       go down
     if ( $current_char =~ m/[7]/) {
+
+        $ascii_map[$player_y][$player_x] = "╗" ;
+
         if ($last_dir eq "up") {
             if ( $map[$player_y][$player_x-1] =~ m/[FL\-S]/ ) {
                 # check 'left'
@@ -237,6 +253,9 @@ while ($map[$player_y][$player_x] !~ m/[S]/) {
     #   if last_dir = left 
     #       go down
     if ( $current_char =~ m/[F]/) {
+
+        $ascii_map[$player_y][$player_x] = "╔" ;
+
         if ($last_dir eq "up") {
             if ( $map[$player_y][$player_x+1] =~ m/[7J\-S]/ ) {
                 # check 'right'
@@ -265,6 +284,20 @@ while ($map[$player_y][$player_x] !~ m/[S]/) {
 
 }
 
-printf("Count = %d Furthest: %d\n", $count, $count/2);
+printf("Count: %d Furthest: %d\n", $count, $count/2);
+
+
+# dump array to verify
+printf("Array size: %d %d\n", scalar(@ascii_map), scalar(@{$ascii_map[1]}));
+for ($y_idx = 0 ; $y_idx <= scalar(@ascii_map)-1; $y_idx++ ) {
+    for ($x_idx = 0; $x_idx <= scalar(@{$ascii_map[1]})-1; $x_idx++){
+        if ($ascii_map[$y_idx][$x_idx] =~ /[F\-J7\|L]/ ){
+            $ascii_map[$y_idx][$x_idx] = ".";
+        }
+        printf("%s",$ascii_map[$y_idx][$x_idx]);
+    }
+    printf("\n");
+}
+
 
 exit ;
